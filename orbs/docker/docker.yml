@@ -1,0 +1,35 @@
+version: 2.1
+jobs:
+  build_push:
+    description: "Build container"
+
+    parameters:
+      image_name:
+        type: string
+      image_version:
+        type: env_var_name
+      docker_username:
+        type: env_var_name
+      docker_password:
+        type: env_var_name
+
+    docker:
+      - image: docker:18.06.0-ce
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Setup Env
+          command: |
+            VERSION="${<< parameters.image_version >>:-vlatest}"
+            echo "export IMAGE_TAG=${VERSION:1}" >> $BASH_ENV
+      - run:
+          name: Build and push Docker image
+          command: |
+            source $BASH_ENV
+            docker build -t checkmoney/<< parameters.image_name >>:$IMAGE_TAG .
+            echo $<< parameters.docker_password >> | docker login -u "$<< parameters.docker_username >>" --password-stdin
+            docker push checkmoney/<< parameters.image_name >>:$IMAGE_TAG

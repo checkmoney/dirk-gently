@@ -10,7 +10,7 @@ const args = commandLineArgs(optionDefinitions);
 
 const orbName = args.name;
 
-const orbDir = path.resolve(__dirname, '..', 'orbs', orbName);
+const orbDir = path.resolve(__dirname, 'orbs', orbName);
 const orbPath = path.resolve(orbDir, `${orbName}.yml`);
 const orbVersionPath = path.resolve(orbDir, 'version');
 
