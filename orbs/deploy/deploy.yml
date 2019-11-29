@@ -14,6 +14,13 @@ jobs:
         type: env_var_name
       path_to_app:
         type: env_var_name
+      apply_post_install:
+        type: boolean
+        default: false
+      container_name:
+        type: string
+      post_install_script:
+        type: string
 
     machine:
       enabled: true
@@ -35,4 +42,13 @@ jobs:
               sed -i \"s/<< parameters.image_name >>:.*/<< parameters.image_name >>:$IMAGE_TAG/g\" ./docker-compose.yml &&
               sudo docker-compose up -d &&
               sudo docker image prune -f"
+      - when:
+          condition: << parameters.apply_post_install >>
+          steps:
+            - run:
+                name: Deploy Over SSH
+                command: |
+                  source $BASH_ENV
+                  ssh $<< parameters.ssh_user >>@$<< parameters.ssh_host >> "cd $PATH_TO_APP &&
+                    docker-compose run << parameters.container_name >> << parameters.post_install_script >>"
       
