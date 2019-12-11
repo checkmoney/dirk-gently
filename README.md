@@ -2,14 +2,6 @@
 
 A set of orbs for CircleCI
 
-### Publish
-
-Execute helper script:
-
-```sh
-./publish.js --name=<orb-name>
-```
-
 ### Usage
 
 Modify `.circleci/config.yml` in main repo:
@@ -26,3 +18,34 @@ workflows:
     jobs:
       - <orb-name>/<job-name>
 ```
+
+### Orbs
+
++ [deploy](./orbs/deploy)
++ [docker](./orbs/docker)
++ [flutter](./orbs/flutter)
++ [jest](./orbs/jest)
++ [soda-lint](./orbs/soda-lint)
+
+### Development
+
+### Create new orb
+
+```
+circleci orb create checkmoney/NAME
+```
+
+#### Publish
+
+Manually:
+```
+circleci orb publish FULL_PATH_TO_YML checkmoney/NAME@VERSION
+```
+
+Helper script:
+
+```sh
+./publish.js --name=<orb-name>
+```
+
+It has a bug for `deploy` orb, please piblish it manually.
