@@ -1,0 +1,27 @@
+version: 2.1
+jobs:
+  publish:
+    description: "Publish package to npm"
+    parameters:
+      npm_token:
+        type: env_var_name
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - node-dependencies-{{ checksum "yarn.lock" }}
+            - node-dependencies-
+      - run: yarn prepare
+      - save_cache:
+          paths:
+            - node_modules
+          key: node-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$<< parameters.npm_token >>" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
