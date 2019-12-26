@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  notify: checkmoney/notify@1.0.1
 jobs:
   roll_out:
     description: "Deploy container to server"
@@ -51,4 +53,8 @@ jobs:
                   source $BASH_ENV
                   ssh $<< parameters.ssh_user >>@$<< parameters.ssh_host >> "cd $PATH_TO_APP &&
                     docker-compose run << parameters.container_name >> << parameters.post_install_script >>"
+      - notify/send:
+          user: "-322096840"
+          project: << parameters.image_name >>
+          info: "Successfully delivered"
       

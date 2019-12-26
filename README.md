@@ -25,6 +25,7 @@ workflows:
 + [docker](./orbs/docker)
 + [flutter](./orbs/flutter)
 + [jest](./orbs/jest)
++ [notify](./orbs/notify)
 + [npm](./orbs/npm)
 + [soda-lint](./orbs/soda-lint)
 
