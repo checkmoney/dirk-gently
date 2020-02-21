@@ -13,8 +13,7 @@ jobs:
       docker_password:
         type: env_var_name
 
-    docker:
-      - image: docker:18.06.0-ce
+    machine: true
 
     working_directory: ~/repo
 
