@@ -5,20 +5,29 @@ jobs:
     parameters:
       npm_token:
         type: env_var_name
+      legacy_mode:
+        type: boolean
+        default: false
     docker:
       - image: circleci/node:12
     working_directory: ~/repo
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - node-dependencies-{{ checksum "yarn.lock" }}
-            - node-dependencies-
+      - when:
+          condition: << parameters.legacy_mode >>
+          steps:
+            - restore_cache:
+                keys:
+                  - node-dependencies-{{ checksum "yarn.lock" }}
+                  - node-dependencies-
       - run: yarn prepare
-      - save_cache:
-          paths:
-            - node_modules
-          key: node-dependencies-{{ checksum "yarn.lock" }}
+      - when:
+          condition: << parameters.legacy_mode >>
+          steps:
+            - save_cache:
+                paths:
+                  - node_modules
+                key: node-dependencies-{{ checksum "yarn.lock" }}
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$<< parameters.npm_token >>" > ~/repo/.npmrc
