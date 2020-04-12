@@ -28,6 +28,7 @@ workflows:
 + [notify](./orbs/notify)
 + [npm](./orbs/npm)
 + [soda-lint](./orbs/soda-lint)
++ [yarn-berry](./orbs/yarn-berry)
 
 ### Development
 

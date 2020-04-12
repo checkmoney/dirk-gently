@@ -1,0 +1,13 @@
+version: 2.1
+jobs:
+  local:
+    description: "Just do stuff with yarn@berry"
+    parameters:
+      command:
+        type: string
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run: yarn << parameters.command >>
