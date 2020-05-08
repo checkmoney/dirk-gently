@@ -11,6 +11,7 @@ workflows:
   build:
     jobs:
       - docker/build_push:
+          org_name: "checkmoney"
           image_name: "mr-solomons"
           image_version: CIRCLE_TAG
           docker_username: DOCKER_USERNAME
