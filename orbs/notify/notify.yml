@@ -15,6 +15,7 @@ commands:
     steps:
       - run:
           when: << parameters.when >> 
+          name: Send notification by Notify
           command: |
             export NAME="${CIRCLE_TAG:-$CIRCLE_BRANCH}"
             curl -XPOST -H "Content-type: application/json" -d '{"user": "<< parameters.user >>","message": {"medium": "CircleCI","from": "<< parameters.project >>","name": "'"$NAME"'","text": "<< parameters.info >>"}}' 'https://notify.kamyshev.me/v0/telegram'

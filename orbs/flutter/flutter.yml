@@ -11,13 +11,19 @@ jobs:
           keys:
             - dart-dependencies-{{ checksum "pubspec.lock" }}
             - dart-dependencies-
-      - run: flutter pub get
-      - run: flutter packages pub run build_runner build
+      - run:
+          name: Install Dependencies
+          command: flutter pub get
+      - run:
+          name: Build
+          command: flutter packages pub run build_runner build
       - save_cache:
           paths:
             - .dart_tool
           key: dart-dependencies-{{ checksum "pubspec.lock" }}
-      - run: flutter analyze lib
+      - run:
+          name: Analyze code
+          command: flutter analyze lib
   test:
     description: "Run tests for Flutter"
     docker:
@@ -29,10 +35,16 @@ jobs:
           keys:
             - dart-dependencies-{{ checksum "pubspec.lock" }}
             - dart-dependencies-
-      - run: flutter pub get
-      - run: flutter packages pub run build_runner build
+      - run:
+          name: Install Dependencies
+          command: flutter pub get
+      - run:
+          name: Build
+          command: flutter packages pub run build_runner build
       - save_cache:
           paths:
             - .dart_tool
           key: dart-dependencies-{{ checksum "pubspec.lock" }}
-      - run: flutter test
+      - run:
+          name: Run tests
+          command: flutter test

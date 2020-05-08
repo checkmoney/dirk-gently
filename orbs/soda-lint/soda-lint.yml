@@ -11,9 +11,13 @@ jobs:
           keys:
             - node-dependencies-{{ checksum "yarn.lock" }}
             - node-dependencies-
-      - run: yarn install
+      - run:
+          name: Install dependencies
+          command: yarn install
       - save_cache:
           paths:
             - node_modules
           key: node-dependencies-{{ checksum "yarn.lock" }}
-      - run: yarn soda lint
+      - run:
+          name: Run linters
+          command: yarn soda lint

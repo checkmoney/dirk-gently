@@ -20,7 +20,9 @@ jobs:
                 keys:
                   - node-dependencies-{{ checksum "yarn.lock" }}
                   - node-dependencies-
-      - run: yarn prepare
+      - run:
+          name: Prepare package
+          command: yarn prepare
       - when:
           condition: << parameters.legacy_mode >>
           steps:
