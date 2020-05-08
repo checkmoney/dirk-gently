@@ -24,10 +24,8 @@ workflows:
 + [deploy](./orbs/deploy)
 + [docker](./orbs/docker)
 + [flutter](./orbs/flutter)
-+ [jest](./orbs/jest)
 + [notify](./orbs/notify)
 + [npm](./orbs/npm)
-+ [soda-lint](./orbs/soda-lint)
 + [yarn-berry](./orbs/yarn-berry)
 
 ### Development
