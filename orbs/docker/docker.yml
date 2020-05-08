@@ -6,6 +6,9 @@ jobs:
     parameters:
       image_name:
         type: string
+      org_name:
+        type: string
+        default: "checkmoney"
       image_version:
         type: env_var_name
       docker_username:
@@ -28,6 +31,6 @@ jobs:
           name: Build and push Docker image
           command: |
             source $BASH_ENV
-            docker build -t checkmoney/<< parameters.image_name >>:$IMAGE_TAG .
+            docker build -t << parameters.org_name >>/<< parameters.image_name >>:$IMAGE_TAG .
             echo $<< parameters.docker_password >> | docker login -u "$<< parameters.docker_username >>" --password-stdin
-            docker push checkmoney/<< parameters.image_name >>:$IMAGE_TAG
+            docker push << parameters.org_name >>/<< parameters.image_name >>:$IMAGE_TAG

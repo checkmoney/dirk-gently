@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  notify: checkmoney/notify@1.0.1
+  notify: checkmoney/notify@1.1.0
 jobs:
   roll_out:
     description: "Deploy container to server"
@@ -57,4 +57,9 @@ jobs:
           user: "-322096840"
           project: << parameters.image_name >>
           info: "Successfully delivered"
+      - notify/send:
+          user: "-322096840"
+          project: << parameters.image_name >>
+          info: "Alert! Delivery failed!"
+          when: on_fail
       

@@ -9,8 +9,12 @@ commands:
         type: string
       info:
         type: string
+      when:
+        type: string
+        default: on_success
     steps:
       - run:
+          when: << parameters.when >> 
           command: |
             export NAME="${CIRCLE_TAG:-$CIRCLE_BRANCH}"
             curl -XPOST -H "Content-type: application/json" -d '{"user": "<< parameters.user >>","message": {"medium": "CircleCI","from": "<< parameters.project >>","name": "'"$NAME"'","text": "<< parameters.info >>"}}' 'https://notify.kamyshev.me/v0/telegram'
