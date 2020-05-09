@@ -7,7 +7,7 @@ Example:
 ```yml
 version: 2.1
 orbs:
-  deploy: checkmoney/deploy@1.0.10
+  deploy: checkmoney/deploy@1.2.0
 workflows:
   version: 2
   build:
@@ -15,7 +15,9 @@ workflows:
       - deploy/roll_out:
           ssh_user: SSH_USER
           ssh_host: SSH_HOST
+          org_name: "checkmoney"
           image_name: "mr-solomons"
+          notify_user: "1234567890"
           image_version: CIRCLE_TAG
           path_to_app: PATH_TO_APP
           container_name: "solomons"

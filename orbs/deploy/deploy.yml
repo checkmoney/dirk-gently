@@ -10,6 +10,12 @@ jobs:
         type: env_var_name
       ssh_host:
         type: env_var_name
+      org_name:
+        type: string
+        default: "checkmoney"
+      notify_user:
+        type: string
+        default: "-322096840"
       image_name:
         type: string
       image_version:
@@ -39,7 +45,7 @@ jobs:
           command: |
             source $BASH_ENV
             ssh $<< parameters.ssh_user >>@$<< parameters.ssh_host >> "cd $PATH_TO_APP &&
-              sudo docker pull checkmoney/<< parameters.image_name >>:$IMAGE_TAG &&
+              sudo docker pull << parameters.org_name >>/<< parameters.image_name >>:$IMAGE_TAG &&
               sudo docker-compose down &&
               sed -i \"s/<< parameters.image_name >>:.*/<< parameters.image_name >>:$IMAGE_TAG/g\" ./docker-compose.yml &&
               sudo docker-compose up -d &&
@@ -54,7 +60,7 @@ jobs:
                   ssh $<< parameters.ssh_user >>@$<< parameters.ssh_host >> "cd $PATH_TO_APP &&
                     docker-compose run << parameters.container_name >> << parameters.post_install_script >>"
       - notify/send:
-          user: "-322096840"
+          user: << parameters.notify_user >>
           project: << parameters.image_name >>
           info: "Successfully delivered"
       - notify/send:
