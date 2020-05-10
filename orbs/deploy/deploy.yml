@@ -29,6 +29,7 @@ jobs:
         type: string
       post_install_script:
         type: string
+        default: "echo 0"
 
     machine:
       enabled: true
