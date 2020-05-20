@@ -59,7 +59,7 @@ jobs:
                 command: |
                   source $BASH_ENV
                   ssh $<< parameters.ssh_user >>@$<< parameters.ssh_host >> "cd $PATH_TO_APP &&
-                    docker-compose run << parameters.container_name >> << parameters.post_install_script >>"
+                    docker-compose run --rm << parameters.container_name >> << parameters.post_install_script >>"
       - notify/send:
           user: << parameters.notify_user >>
           project: << parameters.image_name >>
