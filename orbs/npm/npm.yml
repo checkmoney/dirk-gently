@@ -20,6 +20,7 @@ jobs:
                 keys:
                   - node-dependencies-{{ checksum "yarn.lock" }}
                   - node-dependencies-
+      - run: yarn
       - run:
           name: Prepare package
           command: yarn prepare
